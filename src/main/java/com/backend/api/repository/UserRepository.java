@@ -1,16 +1,11 @@
 package com.backend.api.repository;
 
-import com.backend.api.entity.Role;
 import com.backend.api.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-public interface RoleRepository extends JpaRepository<Role,Long> {
-    Optional<Role> findByName(String name);
-
-
-}
+public interface UserRepository extends JpaRepository<User,Long> {
+    List<User> findByRole_Id(Long roleId);}
