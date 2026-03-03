@@ -35,4 +35,10 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<StockInfo> stockInfos;
+
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
+    private List<Location> createdLocations;
+
+    @OneToOne(mappedBy = "fieldStaff")
+    private Location assignedLocation;
 }
