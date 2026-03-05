@@ -1,0 +1,19 @@
+{
+  "code": 200,
+  "data": {
+    "currentUser": {
+      "email": "ye2@gmail.com",
+      "id": 9,
+      "role": {
+        "id": 2,
+        "name": "FieldStaff"
+      }
+    }
+  },
+  "message": "User account created Successfully.",
+  "meta": {
+    "endpoint": "/api/users",
+    "method": "POST"
+  },
+  "success": 1
+}
