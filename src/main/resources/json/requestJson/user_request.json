@@ -1,0 +1,17 @@
+[{
+  "email":"ye2@gmail.com",
+  "password":"ye123",
+  "role":"FieldStaff"
+},
+  {
+    "email":"soe1@gmail.com",
+    "password":"soe123",
+    "role":"FieldStaff"
+  },
+  {
+    "email":"lin1@gmail.com",
+    "password":"lin123",
+    "role":"ProjectOfficer"
+  }
+
+  ]

@@ -23,12 +23,12 @@ public class Location {
     @Column(nullable = false, length = 50)
     private String locationName;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "admin_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "projectOfficer_id", nullable = true)
     private User creator;
 
-    @OneToOne(optional = false)
-    @JoinColumn(name = "field_staff_id", nullable = false, unique = true)
+    @OneToOne
+    @JoinColumn(name = "field_staff_id", nullable = true, unique = true)
     private User fieldStaff;
 
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
