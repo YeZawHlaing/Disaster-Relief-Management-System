@@ -32,5 +32,8 @@ public class Location {
     private User fieldStaff;
 
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
-    private List<Beneficial> beneficials;
+    private List<Beneficiary> beneficials;
+
+    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
+    private List<AssignDistribution> assignDistributions;
 }
