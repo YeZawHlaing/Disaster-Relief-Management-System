@@ -1,0 +1,11 @@
+{
+  "eventType": "Flood",
+  "itemName": "Rice",
+  "itemDescription": "White rice 50kg bag",
+  "type": "Foods",
+  "quantity": 100,
+  "unitOfMeasure": "KG",
+  "storageLocation": "Warehouse A",
+  "manufacturedDate": "2025-01-01",
+  "expiriedDate": "2026-01-01"
+}

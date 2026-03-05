@@ -1,0 +1,22 @@
+{
+  "code": 201,
+  "data": {
+    "stockInfo": {
+      "id": 1,
+      "eventType": "Flood",
+      "itemName": "Rice",
+      "itemDescription": "White rice 50kg bag",
+      "type": "Foods",
+      "quantity": 100.0,
+      "unitOfMeasure": "KG",
+      "storageLocation": "Warehouse A",
+      "manufacturedDate": "2025-01-01",
+      "expiriedDate": "2026-01-01",
+      "createdDate": "2026-03-06T01:58:33.299456256",
+      "userId": 4
+    }
+  },
+  "message": "Stock created successfully",
+  "meta": null,
+  "success": 1
+}
