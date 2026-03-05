@@ -9,9 +9,10 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@Table(name = "Beneficiary")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Beneficial {
+public class Beneficiary {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +25,7 @@ public class Beneficial {
     private String fatherName;
 
     @Column(nullable = false,unique = true)
-    private Integer contact;
+    private String contact;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "location_id", nullable = false)

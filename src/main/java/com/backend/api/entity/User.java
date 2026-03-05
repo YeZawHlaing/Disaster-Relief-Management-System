@@ -41,4 +41,7 @@ public class User {
 
     @OneToOne(mappedBy = "fieldStaff")
     private Location assignedLocation;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<AssignDistribution> assignDistributions;
 }

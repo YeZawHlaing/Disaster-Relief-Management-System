@@ -1,0 +1,14 @@
+{
+  "code": 201,
+  "data": {
+    "location": {
+      "creatorId": 7,
+      "id": 5,
+      "locationName": "Mandalay",
+      "staffId": 8
+    }
+  },
+  "message": "Location assigned successfully.",
+  "meta": null,
+  "success": 1
+}

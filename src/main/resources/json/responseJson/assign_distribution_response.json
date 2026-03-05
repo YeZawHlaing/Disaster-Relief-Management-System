@@ -1,14 +1,13 @@
 {
   "code": 201,
   "data": {
-    "location": {
-      "creatorId": 7,
-      "id": 5,
-      "locationName": "Mandalay",
-      "staffId": 8
-    }
+    "beneficName": "Yair Yint",
+    "contact": "9988776788",
+    "fatherName": "Zaw Oo",
+    "id": 1,
+    "locationId": 1
   },
-  "message": "Location assigned successfully.",
+  "message": "Beneficiary created successfully",
   "meta": null,
   "success": 1
 }
