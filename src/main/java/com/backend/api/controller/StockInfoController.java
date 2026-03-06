@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/stocks")
 @RequiredArgsConstructor
+@CrossOrigin
 public class StockInfoController {
 
     private final StockInfoService stockInfoService;
