@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/distribution")
 @RequiredArgsConstructor
+@CrossOrigin
 public class DistributionRecordController {
 
     private final DistributionRecordService distributionRecordService;
