@@ -1,0 +1,11 @@
+{
+  "beneficiaryId": 1,
+  "stockId": 1,
+  "status": "COMPLETED",
+  "distributionDate": "2026-03-06",
+  "quantityGiven": 25.5,
+  "unitOfMeasure": "kg",
+  "reportCreatedDate": "2026-03-06",
+  "emergencyDate": "2026-03-05",
+  "distributedDate": "2026-03-06"
+}
