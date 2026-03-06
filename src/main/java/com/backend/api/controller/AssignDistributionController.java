@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/assign-distributions")
 @RequiredArgsConstructor
+@CrossOrigin
 public class AssignDistributionController {
 
     private final AssignDistributionService service;

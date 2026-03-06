@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/beneficiaries")
 @RequiredArgsConstructor
+@CrossOrigin
 public class BeneficiaryController {
 
     private final BeneficiaryService beneficiaryService;
