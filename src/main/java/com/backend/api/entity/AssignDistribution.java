@@ -23,8 +23,10 @@ public class AssignDistribution {
 
     private LocalDateTime distributionDate;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Enumerated(EnumType.STRING)
     private EventType eventType;
 
     @ManyToOne(fetch = FetchType.LAZY)
