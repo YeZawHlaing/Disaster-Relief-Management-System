@@ -10,6 +10,6 @@ public class LocationResponseDto {
     private Long id;
     private String locationName;
     private Long staffId;
-    private UserResponseDto staff;
+//    private UserResponseDto staff;
     private Long creatorId;
 }

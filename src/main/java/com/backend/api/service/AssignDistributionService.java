@@ -81,10 +81,12 @@ public class AssignDistributionService {
 
         List<AssignDistributionResponseDto> dtoList = distributions.stream()
                 .map(d -> {
+
                     AssignDistributionResponseDto dto = modelMapper.map(d, AssignDistributionResponseDto.class);
                     dto.setUserId(d.getUser().getId());
                     dto.setLocationId(d.getLocation().getId());
                     dto.setLocationName(d.getLocation().getLocationName());
+                    dto.setStaffEmail(d.getUser().getEmail());
                     return dto;
                 }).toList();
 

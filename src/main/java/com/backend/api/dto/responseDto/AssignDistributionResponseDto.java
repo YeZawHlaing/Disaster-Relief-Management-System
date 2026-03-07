@@ -24,4 +24,5 @@ public class AssignDistributionResponseDto {
 
     private String locationName;
 
+    private String staffEmail;
 }
