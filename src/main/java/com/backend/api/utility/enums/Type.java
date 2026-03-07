@@ -4,5 +4,8 @@ public enum Type {
     Water,
     Cloths,
     Foods,
-    Drink
+    Hygiene,
+    Medical,
+    Shelter,
+    Essentials
 }
