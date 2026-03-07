@@ -21,15 +21,15 @@ public class DistributionRecord {
 
     private LocalDate distributionDate;
 
-    private Double quantityGiven;
+    private String houseHoldNrc;
 
-    private String unitOfMeasure;
+    private int familyMembers;
 
-    private LocalDate reportCreatedDate;
+    private int underFive;
 
-    private LocalDate emergencyDate;
+    private int disabled;
 
-    private LocalDate distributedDate;
+    private String distributedItems;
 
     @ManyToOne
     @JoinColumn(name = "beneficial_id")

@@ -14,39 +14,31 @@ public class DistributionRecordController {
 
     private final DistributionRecordService distributionRecordService;
 
-
+    // CREATE
     @PostMapping("/{userId}")
     public ApiResponse createDistributionRecord(
             @PathVariable Long userId,
             @RequestBody DistributionRecordRequestDto dto) {
-
         return distributionRecordService.createDistributionRecord(userId, dto);
     }
 
-
+    // GET ALL
     @GetMapping
-    public ApiResponse getAllDistributionRecord(){
-
-        return distributionRecordService.getAllDistributionRecord();
+    public ApiResponse getAllDistributionRecords() {
+        return distributionRecordService.getAllDistributionRecords();
     }
 
-
+    // UPDATE
     @PutMapping("/{id}")
     public ApiResponse updateDistributionRecordById(
             @PathVariable Long id,
-            @RequestBody DistributionRecordRequestDto dto){
-
-        return distributionRecordService
-                .updateDistributionRecordById(id,dto);
+            @RequestBody DistributionRecordRequestDto dto) {
+        return distributionRecordService.updateDistributionRecordById(id, dto);
     }
 
-
+    // DELETE
     @DeleteMapping("/{id}")
-    public ApiResponse deleteDistributionRecordById(
-            @PathVariable Long id){
-
-        return distributionRecordService
-                .deleteDistributionRecordById(id);
+    public ApiResponse deleteDistributionRecordById(@PathVariable Long id) {
+        return distributionRecordService.deleteDistributionRecordById(id);
     }
-
 }

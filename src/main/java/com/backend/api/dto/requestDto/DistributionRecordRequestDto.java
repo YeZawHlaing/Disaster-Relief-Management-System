@@ -9,17 +9,16 @@ import java.time.LocalDate;
 @Setter
 public class DistributionRecordRequestDto {
 
-    private Long userId;
-    private Long beneficiaryId;
-    private Long stockId;
-
     private String status;
     private LocalDate distributionDate;
-    private Double quantityGiven;
-    private String unitOfMeasure;
+    private String houseHoldNrc;
+    private int familyMembers;
+    private int underFive;
+    private int disabled;
+    private String distributedItems;
 
-    private LocalDate reportCreatedDate;
-    private LocalDate emergencyDate;
-    private LocalDate distributedDate;
+    private Long beneficiaryId;
+    private Long stockId;
+    private Long userId;
 
 }

@@ -3,7 +3,10 @@ package com.backend.api.service;
 import com.backend.api.common.response.ApiResponse;
 import com.backend.api.dto.requestDto.DistributionRecordRequestDto;
 import com.backend.api.dto.responseDto.DistributionRecordResponseDto;
+import com.backend.api.entity.Beneficiary;
 import com.backend.api.entity.DistributionRecord;
+import com.backend.api.entity.StockInfo;
+import com.backend.api.entity.User;
 import com.backend.api.repository.BeneficiaryRepository;
 import com.backend.api.repository.DistributionRecordRepository;
 import com.backend.api.repository.StockInfoRepository;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,31 +33,26 @@ public class DistributionRecordService {
     // CREATE
     public ApiResponse createDistributionRecord(Long userId, DistributionRecordRequestDto dto) {
 
-        DistributionRecord record = new DistributionRecord();
+        // Map basic fields from DTO to entity
+        DistributionRecord record = modelMapper.map(dto, DistributionRecord.class);
 
-        record.setStatus(dto.getStatus());
-        record.setDistributionDate(dto.getDistributionDate());
-        record.setQuantityGiven(dto.getQuantityGiven());
-        record.setUnitOfMeasure(dto.getUnitOfMeasure());
-        record.setReportCreatedDate(dto.getReportCreatedDate());
-        record.setEmergencyDate(dto.getEmergencyDate());
-        record.setDistributedDate(dto.getDistributedDate());
+        // Set relations manually
+        Beneficiary beneficiary = beneficiaryRepository.findById(dto.getBeneficiaryId())
+                .orElseThrow(() -> new RuntimeException("Beneficiary not found"));
+        record.setBeneficiary(beneficiary);
 
-        record.setBeneficiary(
-                beneficiaryRepository.findById(dto.getBeneficiaryId())
-                        .orElseThrow(() -> new RuntimeException("Beneficiary not found")));
+        StockInfo stock = stockRepository.findById(dto.getStockId())
+                .orElseThrow(() -> new RuntimeException("Stock not found"));
+        record.setStock(stock);
 
-        record.setStock(
-                stockRepository.findById(dto.getStockId())
-                        .orElseThrow(() -> new RuntimeException("Stock not found")));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        record.setUser(user);
 
-        record.setUser(
-                userRepository.findById(userId)
-                        .orElseThrow(() -> new RuntimeException("User not found")));
+        DistributionRecord savedRecord = distributionRecordRepository.save(record);
 
-     DistributionRecord saveRecord=distributionRecordRepository.save(record);
-
-        DistributionRecordResponseDto responseDto = modelMapper.map(saveRecord,DistributionRecordResponseDto.class);
+        DistributionRecordResponseDto responseDto =
+                modelMapper.map(savedRecord, DistributionRecordResponseDto.class);
 
         return ApiResponse.builder()
                 .success(1)
@@ -63,12 +62,9 @@ public class DistributionRecordService {
                 .build();
     }
 
-
     // GET ALL
-    public ApiResponse getAllDistributionRecord() {
-
-        List<DistributionRecord> records =
-                distributionRecordRepository.findAll();
+    public ApiResponse getAllDistributionRecords() {
+        List<DistributionRecord> records = distributionRecordRepository.findAll();
 
         if (records.isEmpty()) {
             return ApiResponse.builder()
@@ -79,19 +75,9 @@ public class DistributionRecordService {
                     .build();
         }
 
-        List<DistributionRecordResponseDto> dtoList =
-                records.stream()
-                        .map(record -> {
-                            DistributionRecordResponseDto dto =
-                                    modelMapper.map(record, DistributionRecordResponseDto.class);
-
-                            dto.setUserId(record.getUser().getId());
-                            dto.setBeneficiaryId(record.getBeneficiary().getId());
-                            dto.setStockId(record.getStock().getId());
-
-                            return dto;
-                        })
-                        .toList();
+        List<DistributionRecordResponseDto> dtoList = records.stream()
+                .map(record -> modelMapper.map(record, DistributionRecordResponseDto.class))
+                .collect(Collectors.toList());
 
         return ApiResponse.builder()
                 .success(1)
@@ -101,25 +87,23 @@ public class DistributionRecordService {
                 .build();
     }
 
-
     // UPDATE
-    public ApiResponse updateDistributionRecordById(Long id,
-                                                    DistributionRecordRequestDto dto) {
+    public ApiResponse updateDistributionRecordById(Long id, DistributionRecordRequestDto dto) {
 
-        DistributionRecord record =
-                distributionRecordRepository.findById(id)
-                        .orElseThrow(() -> new RuntimeException("Distribution record not found"));
+        DistributionRecord record = distributionRecordRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Distribution record not found"));
 
+        // Map basic fields from DTO to existing entity
         modelMapper.map(dto, record);
 
-        record.setBeneficiary(
-                beneficiaryRepository.findById(dto.getBeneficiaryId()).orElseThrow());
+        // Update relations
+        Beneficiary beneficiary = beneficiaryRepository.findById(dto.getBeneficiaryId())
+                .orElseThrow(() -> new RuntimeException("Beneficiary not found"));
+        record.setBeneficiary(beneficiary);
 
-        record.setStock(
-                stockRepository.findById(dto.getStockId()).orElseThrow());
-
-//        record.setUser(
-//                userRepository.findById(dto.getUserId()).orElseThrow());
+        StockInfo stock = stockRepository.findById(dto.getStockId())
+                .orElseThrow(() -> new RuntimeException("Stock not found"));
+        record.setStock(stock);
 
         distributionRecordRepository.save(record);
 
@@ -131,13 +115,10 @@ public class DistributionRecordService {
                 .build();
     }
 
-
     // DELETE
     public ApiResponse deleteDistributionRecordById(Long id) {
-
-        DistributionRecord record =
-                distributionRecordRepository.findById(id)
-                        .orElseThrow(() -> new RuntimeException("Distribution record not found"));
+        DistributionRecord record = distributionRecordRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Distribution record not found"));
 
         distributionRecordRepository.delete(record);
 
@@ -148,5 +129,4 @@ public class DistributionRecordService {
                 .data(null)
                 .build();
     }
-
 }
