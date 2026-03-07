@@ -12,6 +12,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
+
 
 
     public ApiResponse createUser(UserRequestDto request) {
@@ -34,7 +37,7 @@ public class UserService {
 
         User user = new User();
         user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(role);
 
         userRepository.save(user);
