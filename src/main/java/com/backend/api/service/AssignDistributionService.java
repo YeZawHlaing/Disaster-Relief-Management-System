@@ -84,6 +84,7 @@ public class AssignDistributionService {
                     AssignDistributionResponseDto dto = modelMapper.map(d, AssignDistributionResponseDto.class);
                     dto.setUserId(d.getUser().getId());
                     dto.setLocationId(d.getLocation().getId());
+                    dto.setLocationName(d.getLocation().getLocationName());
                     return dto;
                 }).toList();
 

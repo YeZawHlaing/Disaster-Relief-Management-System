@@ -22,4 +22,6 @@ public class AssignDistributionResponseDto {
 
     private Long locationId;
 
+    private String locationName;
+
 }
