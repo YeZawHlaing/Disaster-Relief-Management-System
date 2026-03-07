@@ -6,10 +6,7 @@ import com.backend.api.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/api")
@@ -26,6 +23,14 @@ public class RoleController {
         ApiResponse response = roleService.createRole(request);
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/roles")
+    public ResponseEntity<ApiResponse> getAllRoles() {
 
+        ApiResponse response = roleService.getAllRole();
+
+        return ResponseEntity
+                .status(response.getCode())
+                .body(response);
+    }
 
 }
