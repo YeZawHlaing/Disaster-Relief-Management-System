@@ -27,7 +27,6 @@ public class UserInfoService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
-    // CREATE
     public ApiResponse createUserInfo(Long userId, UserInfoRequestDto request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));

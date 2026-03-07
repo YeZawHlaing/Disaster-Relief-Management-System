@@ -32,15 +32,12 @@ public class AssignDistributionService {
     // Create AssignDistribution
     public ApiResponse createAssignDistribution(Long creatorId, AssignDistributionRequestDto request) {
 
-        // 1️⃣ Fetch user (creator)
         User user = userRepository.findById(creatorId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
-        // 2️⃣ Fetch location
         Location location = locationRepository.findById(request.getLocationId())
                 .orElseThrow(() -> new EntityNotFoundException("Location not found"));
 
-        // 3️⃣ Create AssignDistribution entity
         AssignDistribution distribution = new AssignDistribution();
         distribution.setDistributionDate(request.getDistributionDate());
         distribution.setStatus(request.getStatus());
@@ -48,10 +45,8 @@ public class AssignDistributionService {
         distribution.setUser(user);
         distribution.setLocation(location);
 
-        // 4️⃣ Save
         AssignDistribution saved = assignDistributionRepository.save(distribution);
 
-        // 5️⃣ Map to response DTO
         AssignDistributionResponseDto responseDto =
                 modelMapper.map(saved, AssignDistributionResponseDto.class);
 
@@ -146,7 +141,6 @@ public class AssignDistributionService {
         AssignDistribution distribution = assignDistributionRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("AssignDistribution not found"));
 
-        // Optional: detach relationships to avoid FK issues
         distribution.setUser(null);
         distribution.setLocation(null);
 

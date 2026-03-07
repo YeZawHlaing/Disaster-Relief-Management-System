@@ -15,7 +15,13 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
+import org.apache.poi.ss.usermodel.*;
+import java.io.*;
 
+
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,35 +37,38 @@ public class DistributionRecordService {
     private final ModelMapper modelMapper;
 
     // CREATE
-    public ApiResponse createDistributionRecord(Long userId, DistributionRecordRequestDto dto) {
 
-        // Map basic fields from DTO to entity
-        DistributionRecord record = modelMapper.map(dto, DistributionRecord.class);
-
-        // Set relations manually
+    public DistributionRecord createDistributionRecord(Long userId, DistributionRecordRequestDto dto) {
+        // Fetch existing Beneficiary
+        System.out.println(dto.getBeneficiaryId());
         Beneficiary beneficiary = beneficiaryRepository.findById(dto.getBeneficiaryId())
                 .orElseThrow(() -> new RuntimeException("Beneficiary not found"));
-        record.setBeneficiary(beneficiary);
 
-        StockInfo stock = stockRepository.findById(dto.getStockId())
-                .orElseThrow(() -> new RuntimeException("Stock not found"));
-        record.setStock(stock);
+        // Fetch existing StockInfo
+        StockInfo stockInfo = stockRepository.findById(dto.getStockId())
+                .orElseThrow(() -> new RuntimeException("StockInfo not found"));
 
+        // Fetch existing User
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Map DTO to entity manually
+        DistributionRecord record = new DistributionRecord();
+        record.setStatus(dto.getStatus());
+        record.setDistributionDate(dto.getDistributionDate());
+        record.setHouseHoldNrc(dto.getHouseHoldNrc());
+        record.setFamilyMembers(dto.getFamilyMembers());
+        record.setUnderFive(dto.getUnderFive());
+        record.setDisabled(dto.getDisabled());
+        record.setDistributedItems(dto.getDistributedItems());
+
+        // Set relationships
+        record.setBeneficiary(beneficiary);
+        record.setStock(stockInfo);
         record.setUser(user);
 
-        DistributionRecord savedRecord = distributionRecordRepository.save(record);
-
-        DistributionRecordResponseDto responseDto =
-                modelMapper.map(savedRecord, DistributionRecordResponseDto.class);
-
-        return ApiResponse.builder()
-                .success(1)
-                .code(HttpStatus.CREATED.value())
-                .message("Distribution record created successfully.")
-                .data(responseDto)
-                .build();
+        // Save to DB
+        return distributionRecordRepository.save(record);
     }
 
     // GET ALL

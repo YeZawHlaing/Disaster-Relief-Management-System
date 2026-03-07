@@ -29,7 +29,6 @@ public class BeneficiaryService {
 
     public ApiResponse createBeneficiary(Long locationId, BeneficiaryRequestDto dto) {
 
-        // 1️⃣ Check duplicate contact
         if (beneficiaryRepository.existsByContact((dto.getContact()))) {
             return ApiResponse.builder()
                     .success(0)
@@ -38,22 +37,17 @@ public class BeneficiaryService {
                     .build();
         }
 
-        // 2️⃣ Fetch location
         Location location = locationRepository.findById(locationId)
                 .orElseThrow(() -> new EntityNotFoundException("Location not found"));
 
-        // 3️⃣ Convert DTO → Entity
         Beneficiary beneficiary = modelMapper.map(dto, Beneficiary.class);
         beneficiary.setLocation(location);
 
-        // 4️⃣ Save entity
         Beneficiary savedBeneficiary = beneficiaryRepository.save(beneficiary);
 
-        // 5️⃣ Convert Entity → ResponseDTO
         BeneficiaryResponseDto responseDto = modelMapper.map(savedBeneficiary, BeneficiaryResponseDto.class);
         responseDto.setLocationId(location.getId());
 
-        // 6️⃣ Return response
         return ApiResponse.builder()
                 .success(1)
                 .code(HttpStatus.CREATED.value())
@@ -61,7 +55,6 @@ public class BeneficiaryService {
                 .data(responseDto)
                 .build();
     }
-    // -------------------- GET ALL --------------------
     public ApiResponse getAllBeneficiaries() {
 
         List<Beneficiary> beneficiaries = beneficiaryRepository.findAll();
@@ -91,7 +84,6 @@ public class BeneficiaryService {
     }
 
 
-    // -------------------- UPDATE (PATCH) --------------------
     public ApiResponse updateBeneficiaryById(Long id, BeneficiaryRequestDto dto) {
 
         Beneficiary beneficiary = beneficiaryRepository.findById(id)
@@ -129,7 +121,6 @@ public class BeneficiaryService {
     }
 
 
-    // -------------------- DELETE --------------------
     public ApiResponse deleteBeneficiaryById(Long id) {
 
         Beneficiary beneficiary = beneficiaryRepository.findById(id)
