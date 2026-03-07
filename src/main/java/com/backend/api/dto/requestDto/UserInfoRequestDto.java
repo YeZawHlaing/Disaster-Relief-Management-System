@@ -1,12 +1,12 @@
 package com.backend.api.dto.requestDto;
 
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class UserInfoRequestDto {
+
     private String userName;
 
     private String NRC;

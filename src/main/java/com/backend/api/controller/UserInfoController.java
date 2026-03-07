@@ -8,19 +8,43 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/userInfomation")
+@RequestMapping("/api/userInfo")
 @RequiredArgsConstructor
 @CrossOrigin
 public class UserInfoController {
 
     private final UserInfoService userInfoService;
 
-    @PostMapping
+    // CREATE
+    @PostMapping("/user/{userId}")
     public ResponseEntity<ApiResponse> createUserInfo(
-             @RequestBody UserInfoRequestDto request) {
-
-        ApiResponse response = userInfoService.createUserInfo(request);
-
-        return ResponseEntity.ok(response);
+            @PathVariable Long userId,
+            @RequestBody UserInfoRequestDto request) {
+        ApiResponse response = userInfoService.createUserInfo(userId, request);
+        return ResponseEntity.status(response.getCode()).body(response);
     }
+
+    // GET ALL
+    @GetMapping
+    public ResponseEntity<ApiResponse> getAllUserInfo() {
+        ApiResponse response = userInfoService.getAllUserInfo();
+        return ResponseEntity.status(response.getCode()).body(response);
+    }
+
+    // UPDATE
+    @PatchMapping("/{id}")
+    public ResponseEntity<ApiResponse> updateUserInfo(
+            @PathVariable Long id,
+            @RequestBody UserInfoRequestDto request) {
+        ApiResponse response = userInfoService.updateUserInfo(id, request);
+        return ResponseEntity.status(response.getCode()).body(response);
+    }
+
+    // DELETE
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse> deleteUserInfo(@PathVariable Long id) {
+        ApiResponse response = userInfoService.deleteUserInfo(id);
+        return ResponseEntity.status(response.getCode()).body(response);
+    }
+
 }

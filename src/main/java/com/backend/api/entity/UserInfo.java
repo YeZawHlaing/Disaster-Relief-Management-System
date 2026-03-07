@@ -20,25 +20,26 @@ public class UserInfo {
     @Column(nullable = false, length = 50)
     private String userName;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String NRC;
 
-    @Column(nullable = false, length = 50,unique = true)
+    @Column(nullable = false,unique = true)
     private String phoneNumber;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String address;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String DOB;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private String gender;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false,cascade=CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
+
 }

@@ -22,4 +22,6 @@ public class UserInfoResponseDto {
     private String DOB;
 
     private String gender;
+
+    private Long UserId;
 }
