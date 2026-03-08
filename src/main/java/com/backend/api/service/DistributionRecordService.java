@@ -11,6 +11,7 @@ import com.backend.api.repository.BeneficiaryRepository;
 import com.backend.api.repository.DistributionRecordRepository;
 import com.backend.api.repository.StockInfoRepository;
 import com.backend.api.repository.UserRepository;
+import com.backend.api.utility.enums.Status;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -54,7 +55,7 @@ public class DistributionRecordService {
 
         // Map DTO to entity manually
         DistributionRecord record = new DistributionRecord();
-        record.setStatus(dto.getStatus());
+        record.setStatus(Status.valueOf(dto.getStatus()));
         record.setDistributionDate(dto.getDistributionDate());
         record.setHouseHoldNrc(dto.getHouseHoldNrc());
         record.setFamilyMembers(dto.getFamilyMembers());

@@ -1,5 +1,6 @@
 package com.backend.api.entity;
 
+import com.backend.api.utility.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,18 +18,24 @@ public class DistributionRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
+    @Column(nullable = false)
     private LocalDate distributionDate;
 
+    @Column(nullable = false)
     private String houseHoldNrc;
 
+    @Column(nullable = false)
     private int familyMembers;
 
+    @Column(nullable = true)
     private int underFive;
-
+    @Column(nullable = true)
     private int disabled;
 
+    @Column(nullable = false)
     private String distributedItems;
 
     @ManyToOne

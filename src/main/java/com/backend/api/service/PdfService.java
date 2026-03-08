@@ -52,7 +52,7 @@ public class PdfService {
 
         for (DistributionRecord record : records) {
             table.addCell(String.valueOf(record.getId()));
-            table.addCell(record.getStatus());
+            table.addCell(String.valueOf(record.getStatus()));
             table.addCell(record.getDistributionDate().toString());
             table.addCell(record.getHouseHoldNrc());
             table.addCell(String.valueOf(record.getFamilyMembers()));

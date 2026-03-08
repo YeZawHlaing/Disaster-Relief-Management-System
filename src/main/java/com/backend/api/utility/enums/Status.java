@@ -2,7 +2,7 @@ package com.backend.api.utility.enums;
 
 public enum Status {
 
-    Assigned,
+    Approved,
     Pending,
-    Completed
+    Denied
 }
