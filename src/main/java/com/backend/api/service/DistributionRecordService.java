@@ -132,11 +132,11 @@ public class DistributionRecordService {
         }
 
         // Update user
-        if (dto.getUserId() != null) {
-            User user = userRepository.findById(dto.getUserId())
-                    .orElseThrow(() -> new RuntimeException("User not found"));
-            record.setUser(user);
-        }
+//        if (dto.getUserId() != null) {
+//            User user = userRepository.findById(dto.getUserId())
+//                    .orElseThrow(() -> new RuntimeException("User not found"));
+//            record.setUser(user);
+//        }
 
         distributionRecordRepository.save(record);
 

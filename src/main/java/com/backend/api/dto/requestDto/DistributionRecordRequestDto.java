@@ -20,6 +20,6 @@ public class DistributionRecordRequestDto {
 
     private Long beneficiaryId;
 //    private Long stockId;
-    private Long userId;
+//    private Long userId;
 
 }
