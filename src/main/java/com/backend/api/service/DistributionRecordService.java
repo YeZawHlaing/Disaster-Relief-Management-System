@@ -3,6 +3,7 @@ package com.backend.api.service;
 import com.backend.api.common.response.ApiResponse;
 import com.backend.api.common.response.ResponseUtils;
 import com.backend.api.dto.requestDto.DistributionRecordRequestDto;
+import com.backend.api.dto.requestDto.UpdateStatusRequestDto;
 import com.backend.api.dto.responseDto.BeneficiaryResponseDto;
 import com.backend.api.dto.responseDto.DistributionRecordResponseDto;
 import com.backend.api.dto.responseDto.RoleResponseDto;
@@ -183,5 +184,20 @@ public class DistributionRecordService {
                 .message("Distribution record deleted successfully.")
                 .data(null)
                 .build();
+    }
+    // status
+    // UPDATE
+    public ApiResponse updateStatus(Long id, UpdateStatusRequestDto dto) {
+
+        DistributionRecord record = distributionRecordRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Distribution record not found"));
+
+        // Manual DTO mapping
+        record.setStatus(dto.getStatus());
+
+
+        distributionRecordRepository.save(record);
+
+        return ResponseUtils.success("Distribution status updated successfully",record);
     }
 }
