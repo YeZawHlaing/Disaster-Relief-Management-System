@@ -21,4 +21,6 @@ public class DistributionRecordResponseDto {
     private BeneficiaryResponseDto beneficiary;
     private StockInfoResponseDto stock;
     private UserResponseDto user;
+
+    private String locationName;
 }

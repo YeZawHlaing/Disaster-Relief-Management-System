@@ -45,7 +45,7 @@ public class DistributionRecordController {
         return distributionRecordService.getAllDistributionRecords();
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ApiResponse updateDistributionRecordById(
             @PathVariable Long id,
             @RequestBody DistributionRecordRequestDto dto) {

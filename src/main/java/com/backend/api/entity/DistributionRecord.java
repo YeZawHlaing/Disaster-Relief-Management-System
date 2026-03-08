@@ -42,9 +42,9 @@ public class DistributionRecord {
     @JoinColumn(name = "beneficial_id")
     private Beneficiary beneficiary;
 
-    @ManyToOne
-    @JoinColumn(name = "stock_id")
-    private StockInfo stock;
+//    @ManyToOne
+//    @JoinColumn(name = "stock_id")
+//    private StockInfo stock;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -60,7 +60,7 @@ public class PdfService {
             table.addCell(String.valueOf(record.getDisabled()));
             table.addCell(record.getDistributedItems());
             table.addCell(String.valueOf(record.getBeneficiary().getId()));
-            table.addCell(String.valueOf(record.getStock().getId()));
+//            table.addCell(String.valueOf(record.getStock().getId()));
             table.addCell(String.valueOf(record.getUser().getId()));
         }
 

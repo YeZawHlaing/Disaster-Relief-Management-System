@@ -18,7 +18,7 @@ public class DistributionRecordRequestDto {
     private String distributedItems;
 
     private Long beneficiaryId;
-    private Long stockId;
+//    private Long stockId;
     private Long userId;
 
 }
