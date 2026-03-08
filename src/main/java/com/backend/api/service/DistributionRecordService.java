@@ -1,6 +1,7 @@
 package com.backend.api.service;
 
 import com.backend.api.common.response.ApiResponse;
+import com.backend.api.common.response.ResponseUtils;
 import com.backend.api.dto.requestDto.DistributionRecordRequestDto;
 import com.backend.api.dto.responseDto.DistributionRecordResponseDto;
 import com.backend.api.entity.*;
@@ -49,7 +50,7 @@ public class DistributionRecordService {
 
         // Map DTO to entity manually
         DistributionRecord record = new DistributionRecord();
-        record.setStatus(Status.valueOf(dto.getStatus()));
+        record.setStatus(dto.getStatus());
         record.setDistributionDate(dto.getDistributionDate());
         record.setHouseHoldNrc(dto.getHouseHoldNrc());
         record.setFamilyMembers(dto.getFamilyMembers());
@@ -110,28 +111,33 @@ public class DistributionRecordService {
         DistributionRecord record = distributionRecordRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Distribution record not found"));
 
-        // Map basic fields from DTO to existing entity
-        modelMapper.map(dto, record);
+        // Manual DTO mapping
+        record.setStatus(dto.getStatus());
+        record.setDistributionDate(dto.getDistributionDate());
+        record.setHouseHoldNrc(dto.getHouseHoldNrc());
+        record.setFamilyMembers(dto.getFamilyMembers());
+        record.setUnderFive(dto.getUnderFive());
+        record.setDisabled(dto.getDisabled());
+        record.setDistributedItems(dto.getDistributedItems());
 
-        // Update relations
-        Beneficiary beneficiary = beneficiaryRepository.findById(dto.getBeneficiaryId())
-                .orElseThrow(() -> new RuntimeException("Beneficiary not found"));
-        record.setBeneficiary(beneficiary);
+        // Update beneficiary
+        if (dto.getBeneficiaryId() != null) {
+            Beneficiary beneficiary = beneficiaryRepository.findById(dto.getBeneficiaryId())
+                    .orElseThrow(() -> new RuntimeException("Beneficiary not found"));
+            record.setBeneficiary(beneficiary);
+        }
 
-//        StockInfo stock = stockRepository.findById(dto.getStockId())
-//                .orElseThrow(() -> new RuntimeException("Stock not found"));
-//        record.setStock(stock);
+        // Update user
+        if (dto.getUserId() != null) {
+            User user = userRepository.findById(dto.getUserId())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+            record.setUser(user);
+        }
 
         distributionRecordRepository.save(record);
 
-        return ApiResponse.builder()
-                .success(1)
-                .code(HttpStatus.OK.value())
-                .message("Distribution record updated successfully.")
-                .data(null)
-                .build();
+        return ResponseUtils.success("Distribution record updated successfully",record);
     }
-
     // DELETE
     public ApiResponse deleteDistributionRecordById(Long id) {
         DistributionRecord record = distributionRecordRepository.findById(id)

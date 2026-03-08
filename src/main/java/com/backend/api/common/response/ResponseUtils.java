@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class ResponseUtils {
+//    private final ApiResponse apiResponse;
 
     public static ResponseEntity<ApiResponse> buildResponse(final HttpServletRequest request, final ApiResponse response) {
         final HttpStatus status = HttpStatus.valueOf(response.getCode());
@@ -33,5 +34,15 @@ public class ResponseUtils {
             paginatedResponse.getMeta().setEndpoint(endpoint);
         }
         return new ResponseEntity<>(paginatedResponse, status);
+    }
+
+    public static ApiResponse success(String message, Object data) {
+
+        ApiResponse response = new ApiResponse();
+        response.setCode(HttpStatus.OK.value());
+        response.setMessage(message);
+        response.setData(data);
+
+        return response;
     }
 }

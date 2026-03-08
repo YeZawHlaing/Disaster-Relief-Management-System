@@ -1,5 +1,6 @@
 package com.backend.api.dto.requestDto;
 
+import com.backend.api.utility.enums.Status;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 @Setter
 public class DistributionRecordRequestDto {
 
-    private String status;
+    private Status status;
     private LocalDate distributionDate;
     private String houseHoldNrc;
     private int familyMembers;

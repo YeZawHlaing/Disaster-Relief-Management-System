@@ -46,10 +46,12 @@ public class DistributionRecordController {
     }
 
     @PatchMapping("/{id}")
-    public ApiResponse updateDistributionRecordById(
+    public ResponseEntity<ApiResponse> updateDistributionRecordById(
             @PathVariable Long id,
             @RequestBody DistributionRecordRequestDto dto) {
-        return distributionRecordService.updateDistributionRecordById(id, dto);
+
+        ApiResponse response = distributionRecordService.updateDistributionRecordById(id, dto);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
