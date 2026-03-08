@@ -3,7 +3,10 @@ package com.backend.api.service;
 import com.backend.api.common.response.ApiResponse;
 import com.backend.api.common.response.ResponseUtils;
 import com.backend.api.dto.requestDto.DistributionRecordRequestDto;
+import com.backend.api.dto.responseDto.BeneficiaryResponseDto;
 import com.backend.api.dto.responseDto.DistributionRecordResponseDto;
+import com.backend.api.dto.responseDto.RoleResponseDto;
+import com.backend.api.dto.responseDto.UserResponseDto;
 import com.backend.api.entity.*;
 import com.backend.api.repository.*;
 import com.backend.api.utility.enums.Status;
@@ -136,7 +139,36 @@ public class DistributionRecordService {
 
         distributionRecordRepository.save(record);
 
-        return ResponseUtils.success("Distribution record updated successfully",record);
+        DistributionRecordResponseDto responseDto = new DistributionRecordResponseDto();
+        responseDto.setId(record.getId());
+        responseDto.setStatus(String.valueOf(record.getStatus()));
+        responseDto.setDistributionDate(record.getDistributionDate());
+        responseDto.setHouseHoldNrc(record.getHouseHoldNrc());
+        responseDto.setFamilyMembers(record.getFamilyMembers());
+        responseDto.setUnderFive(record.getUnderFive());
+        responseDto.setDisabled(record.getDisabled());
+        responseDto.setDistributedItems(record.getDistributedItems());
+
+// Map Beneficiary
+        BeneficiaryResponseDto benDto = new BeneficiaryResponseDto();
+        benDto.setId(record.getBeneficiary().getId());
+        benDto.setBeneficName(record.getBeneficiary().getBeneficName());
+// map only the fields you need, **avoid recursive links**
+        responseDto.setBeneficiary(benDto);
+
+// Map User
+        UserResponseDto userDto = new UserResponseDto();
+        userDto.setId(record.getUser().getId());
+        userDto.setEmail(record.getUser().getEmail());
+// do NOT set role.users list, just role info
+        RoleResponseDto roleDto = new RoleResponseDto();
+        roleDto.setId(record.getUser().getRole().getId());
+        roleDto.setName(record.getUser().getRole().getName());
+        userDto.setRole(roleDto);
+
+        responseDto.setUser(userDto);
+
+        return ResponseUtils.success("Distribution record updated successfully", responseDto);
     }
     // DELETE
     public ApiResponse deleteDistributionRecordById(Long id) {
