@@ -2,6 +2,7 @@ package com.backend.api.controller;
 
 import com.backend.api.common.response.ApiResponse;
 import com.backend.api.dto.requestDto.DistributionRecordRequestDto;
+import com.backend.api.dto.requestDto.UpdateStatusRequestDto;
 import com.backend.api.entity.DistributionRecord;
 import com.backend.api.service.DistributionRecordService;
 import com.backend.api.service.PdfService;
@@ -51,6 +52,15 @@ public class DistributionRecordController {
             @RequestBody DistributionRecordRequestDto dto) {
 
         ApiResponse response = distributionRecordService.updateDistributionRecordById(id, dto);
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("status/{id}")
+    public ResponseEntity<ApiResponse> updateStatusByDistributionRecordId(
+            @PathVariable Long id,
+            @RequestBody UpdateStatusRequestDto dto) {
+
+        ApiResponse response = distributionRecordService.updateStatus(id, dto);
         return ResponseEntity.ok(response);
     }
 
